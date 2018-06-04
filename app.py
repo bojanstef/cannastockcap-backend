@@ -4,7 +4,7 @@ from companyupdater import CompanyUpdater
 
 # Initialize the Flask app.
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Update interval is 5 minutes.
 # 5 minutes to seconds is 5 * 60 = 300.
