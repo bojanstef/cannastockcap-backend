@@ -16,13 +16,14 @@ def index():
     return 'We are live.'
 
 # 2. Add metadata; 'last-updated', 'total-companies', and 'error'.
-@app.route('/listings', methods=['GET'])
+@app.route('/companies', methods=['GET'])
 def listings():
-    return jsonify({'data': companyUpdater.companies})
+    companies = companyUpdater.companies
+    return jsonify({'data': companies})
 
 # TODO: - Focus on /listings first. 
 # 3. Add metadata; 'last-updated', and 'error'.
-# @app.route('/ticker/<int:company_id>')
-# def ticker(company_id):
-#     company = companyUpdater.companies[company_id-1]
-#     return jsonify({'data': company})
+@app.route('/symbol/<string:symbol>', methods=['GET'])
+def ticker(symbol):
+    company = next(company for company in companyUpdater.companies if company['symbol'] == symbol)
+    return jsonify({'data': company})
