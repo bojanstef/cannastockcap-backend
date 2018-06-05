@@ -37,7 +37,7 @@ def get_companies():
 
     # Call the Sheets API
     SPREADSHEET_ID = '1zla6lHUg--9OZfIdQjA_munKew40lH3z5mFgXHkNHxc'
-    RANGE_NAME = 'Database!A1:I'
+    RANGE_NAME = 'Database!A1:J'
     result = service.spreadsheets().values().get(spreadsheetId=SPREADSHEET_ID, range=RANGE_NAME).execute()
     values = result.get('values', [])
     if not values:

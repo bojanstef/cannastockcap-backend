@@ -15,14 +15,13 @@ companyUpdater = CompanyUpdater(interval=300)
 def index():
     return 'We are live.'
 
-# 2. Add metadata; 'last-updated', 'total-companies', and 'error'.
+# Add error handling.
 @app.route('/companies', methods=['GET'])
 def companies():
     companies = companyUpdater.companies
     return jsonify({'data': companies})
 
-# TODO: - Focus on /listings first. 
-# 3. Add metadata; 'last-updated', and 'error'.
+# Add error handling.
 @app.route('/symbol/<string:symbol>', methods=['GET'])
 def symbol(symbol):
     company = next(company for company in companyUpdater.companies if company['symbol'] == symbol)
