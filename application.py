@@ -4,7 +4,6 @@ from companyupdater import CompanyUpdater
 
 # Initialize the Flask app.
 application = Flask(__name__)
-application.debug = True
 
 # Only allow requests from React app.
 CORS(application, resources={r"/*": {"origins": "*"}})
@@ -27,8 +26,11 @@ def companies():
 # Add error handling and 404.
 @application.route('/symbol/<string:symbol>', methods=['GET'])
 def symbol(symbol):
-    company = next(company for company in companyUpdater.companies if company['symbol'] == symbol)
-    return jsonify({'data': company})
+    try:
+        company = next(company for company in companyUpdater.companies if company['symbol'] == symbol)
+        return jsonify({'data': company})
+    except:
+        return 'No Symbol: ' + symbol, 404
 
 if __name__ == '__main__':
-    application.run()
+    application.run(threaded=True)
